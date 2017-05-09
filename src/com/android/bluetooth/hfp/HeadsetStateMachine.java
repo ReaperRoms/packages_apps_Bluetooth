@@ -112,7 +112,7 @@ final class HeadsetStateMachine extends StateMachine {
     static final int DISABLE_WBS = 17;
 
     static final int BIND_RESPONSE = 18;
-
+    
     static final int UPDATE_A2DP_PLAY_STATE = 28;
     static final int UPDATE_A2DP_CONN_STATE = 29;
     static final int QUERY_PHONE_STATE_AT_SLC = 30;
@@ -1072,14 +1072,14 @@ final class HeadsetStateMachine extends StateMachine {
                     configureWBSNative(getByteAddress(device),NBS_CODEC);
                 }
                     break;
-                case UPDATE_A2DP_PLAY_STATE:
-                    processIntentA2dpPlayStateChanged((Intent) message.obj);
-                    break;
-                case UPDATE_A2DP_CONN_STATE:
-                    processIntentA2dpStateChanged((Intent) message.obj);
-                    break;
-                case UPDATE_CALL_TYPE:
-                    processIntentUpdateCallType((Intent) message.obj);
+                case UPDATE_A2DP_PLAY_STATE:		
+                    processIntentA2dpPlayStateChanged((Intent) message.obj);		
+                    break;		
+                case UPDATE_A2DP_CONN_STATE:		
+                    processIntentA2dpStateChanged((Intent) message.obj);		
+                    break;		
+                case UPDATE_CALL_TYPE:		
+                    processIntentUpdateCallType((Intent) message.obj);		
                     break;
                 case BIND_RESPONSE:
                 {

@@ -83,13 +83,10 @@ final class RemoteDevices {
     }
 
     BluetoothDevice getDevice(byte[] address) {
-        synchronized (mDevices) {
-            DeviceProperties p = mDevices.get(Utils.getAddressStringFromByte(address));
-            if (p != null) {
-                return p.getDevice();
-            }
-        }
-        return null;
+        DeviceProperties prop = mDevices.get(Utils.getAddressStringFromByte(address));
+        if (prop == null)
+           return null;
+        return prop.getDevice();
     }
 
     DeviceProperties addDeviceProperties(byte[] address) {
@@ -248,8 +245,9 @@ final class RemoteDevices {
         DeviceProperties prop = getDeviceProperties(device);
         Intent intent = new Intent(BluetoothDevice.ACTION_UUID);
         intent.putExtra(BluetoothDevice.EXTRA_DEVICE, device);
-        intent.putExtra(BluetoothDevice.EXTRA_UUID, prop == null? null: prop.mUuids);
-        mAdapterService.initProfilePriorities(device, prop == null? null: prop.mUuids);
+        intent.putExtra(BluetoothDevice.EXTRA_UUID, prop == null ? null : prop.mUuids);
+        mAdapterService.initProfilePriorities(device, prop == null ? null : prop.mUuids);
+
         mAdapterService.sendBroadcast(intent, AdapterService.BLUETOOTH_ADMIN_PERM);
 
         //Remove the outstanding UUID request
@@ -276,7 +274,7 @@ final class RemoteDevices {
             return;
         }
 
-        for (int j = 0; j < types.length && device != null; j++) {
+        for (int j = 0; j < types.length; j++) {
             type = types[j];
             val = values[j];
             if (val.length <= 0)

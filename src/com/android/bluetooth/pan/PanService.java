@@ -441,13 +441,13 @@ public class PanService extends ProfileService {
         if (remote_role == BluetoothPan.LOCAL_PANU_ROLE) {
             if (state == BluetoothProfile.STATE_CONNECTED) {
                 if ((!mTetherOn) || (local_role == BluetoothPan.LOCAL_PANU_ROLE)) {
-                    if (DBG) Log.d(TAG, "handlePanDeviceStateChange BT tethering is off/Local role"
+                    Log.d(TAG, "handlePanDeviceStateChange BT tethering is off/Local role"
                             + " is PANU drop the connection");
                     mPanDevices.remove(device);
                     disconnectPanNative(Utils.getByteAddress(device));
                     return;
                 }
-                if(DBG) Log.d(TAG, "handlePanDeviceStateChange LOCAL_NAP_ROLE:REMOTE_PANU_ROLE");
+                Log.d(TAG, "handlePanDeviceStateChange LOCAL_NAP_ROLE:REMOTE_PANU_ROLE");
                 if (mNapIfaceAddr == null) {
                     mNapIfaceAddr = startTethering(iface);
                     if (mNapIfaceAddr == null) {

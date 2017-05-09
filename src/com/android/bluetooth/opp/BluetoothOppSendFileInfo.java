@@ -118,10 +118,8 @@ public class BluetoothOppSendFileInfo {
                 // some content providers don't support the DISPLAY_NAME or SIZE columns
                 metadataCursor = null;
             } catch (SecurityException e) {
-                metadataCursor = null;
-                fileName = uri.getLastPathSegment();
-                Log.e(TAG, "generateFileInfo: " + e);
-                return new BluetoothOppSendFileInfo(fileName, contentType, length, null, 0);
+                Log.e(TAG, "generateFileInfo: Permission error, could not access URI: " + uri);
+                return SEND_FILE_INFO_ERROR;
             }
 
             if (metadataCursor != null) {
